@@ -1,46 +1,45 @@
 <?php
+// products.php - Data Layer (Tema Bengkel Otomotif)
 
 $products = [
     [
-        "id" => "PRD-001",
-        "nama" => "Laptop Asus Pro",
-        "kategori" => "Elektronik",
-        "harga" => 8500000,
-        "stok" => 5,
-        "deskripsi" => "Laptop kerja berperforma tinggi"
+        "id" => "BGK-001",
+        "nama" => "Oli Motor 4T 1L",
+        "kategori" => "Pelumas",
+        "harga" => 55000,
+        "stok" => 12,
+        "deskripsi" => "Oli mesin sintetis untuk motor bebek dan matic"
     ],
     [
-        "id" => "PRD-002",
-        "nama" => "Mouse Wireless",
-        "kategori" => "Aksesori",
-        "harga" => 150000,
-        "stok" => 2, 
-        "deskripsi" => "Mouse ergononis tanpa kabel"
+        "id" => "BGK-002",
+        "nama" => "Kampas Rem Depan",
+        "kategori" => "Suku Cadang",
+        "harga" => 35000,
+        "stok" => 2, // Stok kritis (< 3)
+        "deskripsi" => "Kampas rem cakram bahan keramik tahan panas"
     ],
     [
-        "id" => "PRD-003",
-        "nama" => "Keyboard Mekanikal",
-        "kategori" => "Aksesori",
-        "harga" => 450000,
-        "stok" => 1, 
-        "deskripsi" => "Keyboard mekanikal RGB switch biru"
+        "id" => "BGK-003",
+        "nama" => "Busi Standar Racing",
+        "kategori" => "Pengapian",
+        "harga" => 25000,
+        "stok" => 1, // Stok kritis (< 3)
+        "deskripsi" => "Busi iridium untuk performa pembakaran optimal"
     ],
     [
-        "id" => "PRD-004",
-        "nama" => "Monitor 24 Inch",
-        "kategori" => "Elektronik",
-        "harga" => 1800000,
-        "stok" => 8,
-        "deskripsi" => "Monitor IPS Full HD 75Hz"
+        "id" => "BGK-004",
+        "nama" => "Ban Luar 90/90-14",
+        "kategori" => "Ban",
+        "harga" => 220000,
+        "stok" => 6,
+        "deskripsi" => "Ban tubeless ring 14 untuk motor matic"
     ],
     [
-        "id" => "PRD-005",
-        "nama" => "Flashdisk 64GB",
-        "kategori" => "Penyimpanan",
-        "harga" => 85000,
+        "id" => "BGK-005",
+        "nama" => "Aki Kering 12V 5Ah",
+        "kategori" => "Kelistrikan",
+        "harga" => 185000,
         "stok" => 0, // Stok kritis (< 3)
-        "deskripsi" => "Flashdisk USB 3.0 kecepatan tinggi"
+        "deskripsi" => "Aki bebas perawatan (maintenance free)"
     ]
 ];
-
-  
