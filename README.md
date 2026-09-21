@@ -25,7 +25,7 @@ Dokumen ini merupakan cetak biru (*blueprint*) perancangan arsitektur sistem inf
 | - Data Komoditas Produk |   | - Logika Stok Kritis    |
 +-------------------------+   +-------------------------+
 
----
+```text
 
 ## 3. Spesifikasi Komponen Layer
 
