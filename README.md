@@ -1,37 +1,61 @@
-# Mini Project 1: Product Information System (Bengkel Otomotif)
+# Blueprint Arsitektur Konseptual: Product Information System (Bengkel Otomotif)
 
-Sistem Informasi Manajemen Data Inventori Produk berbasis web sederhana yang dirancang menggunakan PHP murni dengan menerapkan prinsip pemisahan arsitektur (*Separation of Concerns*).
-
----
-
-## 🎯 Tujuan Projek
-Merancang dan mengimplementasikan struktur arsitektur *blueprints* sistem manajemen data informasi produk siap pakai berbasis konsep modularitas dan struktur data terorganisir.
+## 1. Pendahuluan & Tujuan Projek
+Dokumen ini merupakan cetak biru (*blueprint*) perancangan arsitektur sistem informasi berbasis web sederhana. Sistem ini dirancang untuk mengelola dan menampilkan informasi inventori suku cadang/komoditas bengkel otomotif dengan menerapkan prinsip **Separation of Concerns (SoC)**.
 
 ---
 
-## 🏗️ Komponen Arsitektur Sistem
+## 2. Diagram Alur Arsitektur Sistem
 
-Projek ini dibangun menggunakan pemisahan 3 layer utama:
-
-1. **Data Layer (`products.php`)**
-   - Menampung dataset mentah produk bengkel otomotif menggunakan *Multidimensional Associative Array*.
-   - Mengisi atribut penting seperti ID Produk, Nama Produk, Kategori, Harga, Stok, dan Deskripsi.
-
-2. **Processing Layer (`functions.php`)**
-   - Berisi logika bisnis dan fungsi pembantu (*helper functions*).
-   - Memuat fungsi `hitungTotalNilaiStok()` untuk mengalkulasi total nilai aset gudang.
-   - Memuat fungsi `isStokKritis()` untuk mengecek kondisi stok kritis (< 3 unit).
-
-3. **Presentation Layer (`index.php`)**
-   - Merajut seluruh komponen menggunakan `require_once`.
-   - Merender data ke dalam layout tabel HTML menggunakan perulangan `foreach`.
-   - Menandai secara visual baris tabel produk yang memiliki stok kritis (< 3).
+```text
++-------------------------------------------------------+
+|                 PRESENTATION LAYER                    |
+|                     (index.php)                       |
+|   - Merajut komponen dengan require_once              |
+|   - Merender UI Tabel HTML via foreach                |
++---------------------------+---------------------------+
+                            |
+             +--------------+--------------+
+             |                             |
+             v                             v
++-------------------------+   +-------------------------+
+|       DATA LAYER        |   |    PROCESSING LAYER     |
+|      (products.php)     |   |     (functions.php)     |
+| - Multidimensional Array|   | - hitungTotalNilaiStok()|
+| - Data Komoditas Produk |   | - Logika Stok Kritis    |
++-------------------------+   +-------------------------+
 
 ---
 
-## 💻 Cara Menjalankan Projek di Lokal
+## 3. Spesifikasi Komponen Layer
 
-1. Pastikan web server lokal (seperti **XAMPP** atau **Laragon**) sudah terinstal dan berjalan (Apache active).
-2. Unduh atau *clone* repository ini ke folder `htdocs`:
-   ```bash
-   git clone [https://github.com/kaylaaulia1122/mini-project-product-IS.git](https://github.com/kaylaaulia1122/mini-project-product-IS.git)
+### A. Data Layer (`products.php`)
+- **Fungsi Logis:** Berperan sebagai repositori penyimpanan data mentah produk tanpa melibatkan pemrosesan tampilan.
+- **Struktur Data:** Menggunakan *Multidimensional Associative Array* untuk merepresentasikan tabel data di dalam memori.
+- **Atribut Komoditas:**
+  1. `id` (String): Kode unik barang (contoh: `"BGK-001"`).
+  2. `nama` (String): Nama suku cadang/barang.
+  3. `kategori` (String): Pengelompokan jenis barang (Pelumas, Suku Cadang, Pengapian, dll).
+  4. `harga` (Integer): Nilai jual satuan dalam Rupiah.
+  5. `stok` (Integer): Jumlah kuantitas fisik di gudang.
+  6. `deskripsi` (String): Penjelasan spesifikasi barang.
+
+### B. Processing Layer (`functions.php`)
+- **Fungsi Logis:** Menampung seluruh logika bisnis, fungsi matematika, dan aturan pengkondisian (*business rules*).
+- **Abstraksi Fungsi & Alur Logika:**
+  1. **`hitungTotalNilaiStok($daftarProduk)`**
+     - *Input:* Array multidimensi dari Data Layer.
+     - *Proses:* Melakukan traversal loop untuk mengalikan `harga` $\times$ `stok` pada setiap barang, lalu menumpuk hasilnya ke variabel akumulator.
+     - *Output:* Total nilai aset gudang dalam bentuk nominal angka.
+  2. **`isStokKritis($stok)`**
+     - *Input:* Nilai integer dari atribut `stok`.
+     - *Proses:* Evaluasi kondisi boolean bersyarat (`$stok < 3`).
+     - *Output:* Nilai `true` jika stok kritis, atau `false` jika stok aman.
+
+### C. Presentation Layer (`index.php`)
+- **Fungsi Logis:** Bertanggung jawab membangun antarmuka pengguna (UI) dan menampilkan data hasil pemrosesan.
+- **Mekanisme Integrasi & Alur Eksekusi:**
+  1. **Pemuatan Berkas (Modularitas):** Menggunakan `require_once 'products.php';` dan `require_once 'functions.php';` untuk menjamin berkas core dimuat secara mutlak.
+  2. **Eksekusi Pengolahan:** Memanggil fungsi `hitungTotalNilaiStok()` untuk mendapatkan statistik aset.
+  3. **Rendering Data (Traversal UI):** Menggunakan struktur perulangan `foreach` untuk merender setiap elemen array menjadi baris elemen tabel HTML (`<tr>`).
+  4. **Penerapan Aturan Visual (Conditional Styling):** Memanggil fungsi `isStokKritis()` di dalam perulangan untuk menyaring dan memberikan penanda kelas CSS khusus (highlight warna latar baris) jika stok kritis (< 3).
