@@ -25,6 +25,8 @@ Dokumen ini merupakan cetak biru (*blueprint*) perancangan arsitektur sistem inf
 | - Data Komoditas Produk |   | - Logika Stok Kritis    |
 +-------------------------+   +-------------------------+
 
+---
+
 ## 3. Spesifikasi Komponen Layer
 
 ### A. Data Layer (`products.php`)
