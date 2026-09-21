@@ -1,31 +1,17 @@
 # Blueprint Arsitektur Konseptual: Product Information System (Bengkel Otomotif)
 
 ## 1. Pendahuluan & Tujuan Projek
-Dokumen ini merupakan cetak biru (*blueprint*) perancangan arsitektur sistem informasi berbasis web sederhana. Sistem ini dirancang untuk mengelola dan menampilkan informasi inventori suku cadang/komoditas bengkel otomotif dengan menerapkan prinsip **Separation of Concerns (SoC)**.
+Dokumen ini merupakan cetak biru (blueprint) perancangan arsitektur sistem informasi berbasis web sederhana[cite: 3, 7]. Sistem ini dirancang untuk mengelola dan menampilkan informasi inventori suku cadang/komoditas bengkel otomotif dengan menerapkan prinsip **Separation of Concerns (SoC)**[cite: 3].
 
 ---
 
 ## 2. Diagram Alur Arsitektur Sistem
 
-```text
-+-------------------------------------------------------+
-|                 PRESENTATION LAYER                    |
-|                     (index.php)                       |
-|   - Merajut komponen dengan require_once              |
-|   - Merender UI Tabel HTML via foreach                |
-+---------------------------+---------------------------+
-                            |
-             +--------------+--------------+
-             |                             |
-             v                             v
-+-------------------------+   +-------------------------+
-|       DATA LAYER        |   |    PROCESSING LAYER     |
-|      (products.php)     |   |     (functions.php)     |
-| - Multidimensional Array|   | - hitungTotalNilaiStok()|
-| - Data Komoditas Produk |   | - Logika Stok Kritis    |
-+-------------------------+   +-------------------------+
+* **PRESENTATION LAYER (`index.php`)**: Merajut komponen dengan `require_once` dan merender UI Tabel HTML via `foreach`[cite: 3].
+* **DATA LAYER (`products.php`)**: Menampung *Multidimensional Array* data komoditas produk[cite: 3].
+* **PROCESSING LAYER (`functions.php`)**: Memuat fungsi `hitungTotalNilaiStok()` dan logika stok kritis[cite: 3].
 
-```text
+---
 
 ## 3. Spesifikasi Komponen Layer
 
